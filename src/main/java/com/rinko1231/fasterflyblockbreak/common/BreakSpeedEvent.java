@@ -11,11 +11,19 @@ public class BreakSpeedEvent {
     public static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
         Player player = event.getEntity();
 
-
+    if (FFConfiguration.getInstance().getRequireFly()) {
         // 检查玩家是否处于浮空状态
-        if (!player.onGround()&&player.getAbilities().flying) {
+        if (!player.onGround() && player.getAbilities().flying) {
             // 将挖掘速度提高
             event.setNewSpeed(event.getOriginalSpeed() * FFConfiguration.getInstance().getSpeedMulti());
         }
+    } else {
+        if (!player.onGround()) {
+            // 将挖掘速度提高
+            event.setNewSpeed(event.getOriginalSpeed() * FFConfiguration.getInstance().getSpeedMulti());
+        }
+
+    }
+
     }
 }
